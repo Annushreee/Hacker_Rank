@@ -1,0 +1,32 @@
+Given an array of bird sightings where every element represents a bird type id, determine the id of the most frequently sighted type. If more than 1 type has been spotted that maximum amount, return the smallest of their ids.
+Example
+There are two each of types 1 and 2, and one sighting of type . Pick the lower of the two types seen twice: type1 .
+
+Function Description
+Complete the migratoryBirds function in the editor below.
+migratoryBirds has the following parameter(s):
+int arr[n]: the types of birds sighted
+Returns
+int: the lowest type id of the most frequently sighted birds
+
+SOLUTION::
+public static int migratoryBirds(List<Integer> arr) {
+    int numberWithMax = -1;
+        int maxSighting = 0;
+        Map<Integer, Integer> numberAndCount = new HashMap<>();
+
+        for (int bird : arr) {
+            // Increment the count for each bird type
+            numberAndCount.put(bird, numberAndCount.getOrDefault(bird, 0) + 1);
+
+            // Check if the current bird has more sightings, or has the same number of sightings but a smaller ID
+            if (numberAndCount.get(bird) > maxSighting || 
+               (numberAndCount.get(bird) == maxSighting && bird < numberWithMax)) {
+                maxSighting = numberAndCount.get(bird);
+                numberWithMax = bird;
+            }
+        }
+
+        return numberWithMax;
+
+}
